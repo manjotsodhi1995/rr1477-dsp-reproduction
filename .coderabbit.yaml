@@ -1,0 +1,30 @@
+language: en-US
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  auto_review:
+    enabled: true
+    drafts: false
+  pre_merge_checks:
+    title:
+      mode: warning
+      requirements: "Title should convey the real intent of the change concisely"
+    description:
+      mode: warning
+    docstrings:
+      mode: off
+    custom_checks:
+      - name: DSP-FEATURE-FLAG-ENFORCEMENT
+        mode: warning
+        instructions: |
+          Check compliance using rules in: `paymentengine/authentication/webapp/authentication-engine/coderabbit/dsp-feature-flag-rules.yml`.
+          1. Apply 'scope' to the MR diff.
+          2. Enforce 'enforcement_logic', specifically 'allowed_pre_requisites' (e.g. account fetching) and 'constraints'.
+          3. Honor 'cleanup_exception' for flag removals.
+          4. Mandatory: Follow 'constraints' to only verify guard presence; strictly ignore test coverage or branch testing.
+          5. Bypass if 'allow_bypass' keywords are used in chat/description.
+          6. On violation, post 'violation_message' as a review comment on the specific lines.
+          7. If the file `dsp-feature-flag-rules.yml` cannot be found or is not accessible, pass this check and note that the rules file is temporarily unavailable.

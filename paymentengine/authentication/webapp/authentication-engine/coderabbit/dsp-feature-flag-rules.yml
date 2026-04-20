@@ -1,0 +1,40 @@
+# DSP Feature Flag Rules — governed scope + enforcement logic.
+scope:
+  include:
+    - paymentengine/authentication/webapp/authentication-engine/src/main/java/**
+  exclude:
+    - "**/src/test/**"
+    - "**/*.md"
+    - "**/*.xml"
+    - "**/*.properties"
+    - "**/*.yaml"
+    - "**/*.yml"
+    - "**/*.json"
+
+enforcement_logic:
+  allowed_pre_requisites:
+    - account_fetching
+    - user_id_resolution
+  constraints:
+    - "Every new feature flag MUST be registered in this YAML."
+    - "Feature flag reads MUST be guarded by FeatureFlagService.isEnabled()."
+    - "Only verify guard presence; strictly ignore test coverage or branch testing."
+  cleanup_exception:
+    - "Flag removals are allowed and do not require registration entries."
+
+allow_bypass:
+  keywords:
+    - "bypass-dsp-check"
+    - "emergency-rollback"
+
+violation_message: |
+  DSP feature flag compliance violation. See rules in
+  paymentengine/authentication/webapp/authentication-engine/coderabbit/dsp-feature-flag-rules.yml
+
+flags:
+  - name: ACCOUNT_FETCHING_V2
+    owner: auth-team
+    removal_by: 2026-06-30
+  - name: THREEDS_HANDLER_OPTIMIZATION
+    owner: payment-team
+    removal_by: 2026-05-15
