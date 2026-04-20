@@ -8,6 +8,8 @@ public class AuthService {
     }
 
     public String authenticate(String userId) {
+        // CLEANUP: THREEDS_HANDLER_OPTIMIZATION branch removed — per dsp-feature-flag-rules.yml
+        // `cleanup_exception`, flag removals are allowed without registration entries.
         if (featureFlags.isEnabled("ACCOUNT_FETCHING_V2")) {
             return fetchAccountV2(userId);
         }
