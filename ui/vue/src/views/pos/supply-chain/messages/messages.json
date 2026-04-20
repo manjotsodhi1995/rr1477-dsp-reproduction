@@ -1,5 +1,5 @@
 {
   "en": {
-    "purchase.tooltip.vatNumber": "NL + 8 digits"
+    "purchase.tooltip.vatNumber": "Country code + 8 digits"
   }
 }
